@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SWAT Ops: Global Takedown</title>
+  <meta name="description" content="Fictional, educational SWAT-style simulator game."/>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="app">
+    <div class="scanlines"></div>
+
+    <!-- INTRO -->
+    <section id="intro" class="screen active">
+      <div class="center">
+        <div class="column">
+          <h1 class="title neon">SWAT OPS: GLOBAL TAKEDOWN</h1>
+          <p class="subtitle">
+            A fictional, high-intensity decision-making simulator.
+            All scenarios are abstract and educational.
+          </p>
+          <button id="startBtn">Start Mission</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- TARGETS -->
+    <section id="targets" class="screen">
+      <h2 class="neon">Select Target</h2>
+      <div id="targetGrid" class="grid"></div>
+      <button id="toForces" class="secondary">Confirm Target</button>
+    </section>
+
+    <!-- FORCES -->
+    <section id="forces" class="screen">
+      <h2 class="neon">Select Task Unit</h2>
+      <div id="forceGrid" class="grid"></div>
+      <button id="toMission" class="secondary">Deploy</button>
+    </section>
+
+    <!-- MISSION -->
+    <section id="mission" class="screen">
+      <div class="hud">
+        <span id="phasePill" class="pill">Phase 1/3</span>
+        <div class="progress"><span id="progressBar"></span></div>
+        <span id="scorePill" class="pill">Score: 0</span>
+        <button id="quitBtn" class="danger">Quit</button>
+      </div>
+
+      <div class="brief" id="briefBox">
+        <div id="questionText" class="question"></div>
+        <div id="choices" class="choices"></div>
+      </div>
+    </section>
+
+    <!-- SUCCESS -->
+    <section id="success" class="screen">
+      <div class="center">
+        <div class="result">
+          <h2 class="neon">TARGET SECURED</h2>
+          <div id="finalScore" class="score"></div>
+          <button id="replayWin">Play Again</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAILURE -->
+    <section id="failure" class="screen">
+      <div class="center">
+        <div class="result">
+          <h2 class="neon">MISSION ABORTED</h2>
+          <div id="failReason" class="score"></div>
+          <button id="replayFail">Retry</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Pyodide -->
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.23.4/full/pyodide.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

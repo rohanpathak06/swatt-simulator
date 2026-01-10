@@ -1,0 +1,142 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: radial-gradient(circle at top, #0e1a14, #020403);
+  color: #c7f5dc;
+  font-family: "Courier New", monospace;
+  height: 100vh;
+  overflow: hidden;
+}
+
+button {
+  background: linear-gradient(#0b3, #062);
+  border: 1px solid #1f7;
+  padding: 12px 18px;
+  border-radius: 6px;
+  color: #eafff5;
+  font-weight: bold;
+  text-transform: uppercase;
+  box-shadow: 0 0 15px rgba(0,255,180,.3);
+}
+
+button:hover { filter: brightness(1.1); }
+
+.secondary { background: linear-gradient(#244, #122); }
+.danger { background: linear-gradient(#533, #311); border-color: #f77; }
+
+.screen {
+  display: none;
+  position: absolute;
+  inset: 0;
+  padding: 24px;
+}
+
+.screen.active { display: block; }
+
+.center {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.column { display: flex; flex-direction: column; gap: 16px; align-items: center; }
+
+.title { font-size: 42px; letter-spacing: 3px; }
+.subtitle { max-width: 600px; text-align: center; }
+
+.neon { text-shadow: 0 0 10px rgba(120,255,220,.6); }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+  gap: 16px;
+  margin: 16px 0;
+}
+
+.card {
+  background: rgba(0,0,0,.4);
+  border: 1px solid rgba(140,255,210,.3);
+  padding: 14px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.card.selected { outline: 2px solid #3f7; }
+
+.mugshot {
+  height: 100px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 6px;
+  filter: grayscale(70%) contrast(1.2);
+}
+
+
+.stat {
+  height: 8px;
+  background: #111;
+  margin-top: 6px;
+}
+
+.stat span {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, #0f7, #0c5);
+}
+
+.hud {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(0,0,0,.6);
+  padding: 10px;
+}
+
+.pill {
+  border: 1px solid rgba(140,255,210,.4);
+  padding: 6px 10px;
+  border-radius: 999px;
+}
+
+.progress {
+  width: 200px;
+  height: 10px;
+  background: #111;
+}
+
+.progress span {
+  display: block;
+  height: 100%;
+  background: #0f7;
+  width: 0%;
+}
+
+.brief {
+  margin-top: 60px;
+  padding: 20px;
+  background: rgba(0,0,0,.5);
+  border-radius: 10px;
+}
+
+.choice {
+  padding: 12px;
+  border: 1px solid rgba(140,255,210,.3);
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.choice:hover { background: rgba(0,255,180,.15); }
+
+.scanlines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255,255,255,.03) 0,
+    rgba(255,255,255,.03) 1px,
+    transparent 2px,
+    transparent 4px
+  );
+}
