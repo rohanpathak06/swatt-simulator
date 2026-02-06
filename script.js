@@ -2,7 +2,7 @@
 const AudioCtx = window.AudioContext || window.webkitAudioContext;
 const audioCtx = new AudioCtx();
 
-function beep(freq=440, dur=0.12){
+function beep(freq = 440, dur = 0.12) {
   const o = audioCtx.createOscillator();
   const g = audioCtx.createGain();
   o.frequency.value = freq;
@@ -31,7 +31,7 @@ const state = {
   total: 9
 };
 
-function show(name){
+function show(name) {
   Object.values(screens).forEach(s => s.classList.remove("active"));
   screens[name].classList.add("active");
 }
@@ -117,21 +117,21 @@ const forcesData = [
 
 
 const questions = [
-  {q:"Best way to reduce risk?", a:["Communication","Speed","Guessing"], c:0},
-  {q:"Unexpected obstacle?", a:["Reassess","Ignore","Rush"], c:0},
-  {q:"Ethical priority?", a:["Safety","Force","Speed"], c:0},
-  {q:"Intel handling?", a:["Verify","Assume","Skip"], c:0},
-  {q:"Team leadership?", a:["Adapt","Freeze","Blame"], c:0},
-  {q:"Crowded area?", a:["Caution","Aggression","Speed"], c:0},
-  {q:"Mission success?", a:["Objectives","Score","Speed"], c:0},
-  {q:"Change of plan?", a:["Calm adjust","Panic","Abort"], c:0},
-  {q:"After mission?", a:["Review","Forget","Ignore"], c:0}
+  { q: "Approaching the target compound. Intel suggests traps at the main entry.", a: ["Standard Breach", "Check for tripwires", "Rush in"], c: 1 },
+  { q: "You encounter an unidentified male running towards you in the hallway, screaming.", a: ["Shoot immediately", "Command 'Get Down!'", "Ignore him"], c: 1 },
+  { q: "Suspect is using a hostage as a human shield. He is shouting demands.", a: ["Take the shot instantly", "De-escalate & wait", "Charge the suspect"], c: 1 },
+  { q: "You find a laptop with open encrypted chat logs.", a: ["Destroy it", "Secure for intel team", "Read it right now"], c: 1 },
+  { q: "Teammate is hit in the leg. Zone is not clear.", a: ["Stop & treat now", "Suppress & drag to cover", "Leave him"], c: 1 },
+  { q: "Entering a large warehouse. Lighting is poor.", a: ["Use NVGs & slice pie", "Run to the center", "Spray fire at corners"], c: 0 },
+  { q: "Suspect drops weapon but keeps hands in pockets.", a: ["Approach closely", "Command 'Hands up'", "Fire warning shot"], c: 1 },
+  { q: "You spot improvised chemical devices wired to the door.", a: ["Cut the red wire", "Mark hazard & call EOD", "Kick them aside"], c: 1 },
+  { q: "Target secured. Angry mob forming outside.", a: ["Fire into the crowd", "Use alt route/smoke", "Argue with them"], c: 1 }
 ];
 
 /* ================= RENDER ================= */
-function renderCards(data, container, onSelect){
+function renderCards(data, container, onSelect) {
   container.innerHTML = "";
-  data.forEach(item=>{
+  data.forEach(item => {
     const c = document.createElement("div");
     c.className = "card";
     c.innerHTML = `
@@ -142,8 +142,8 @@ function renderCards(data, container, onSelect){
     `;
 
 
-    c.onclick = ()=>{
-      [...container.children].forEach(x=>x.classList.remove("selected"));
+    c.onclick = () => {
+      [...container.children].forEach(x => x.classList.remove("selected"));
       c.classList.add("selected");
       onSelect(item);
       beep();
@@ -159,16 +159,16 @@ function updatePhase() {
 
 
 /* ================= MISSION ================= */
-function renderQuestion(){
+function renderQuestion() {
   const q = questions[state.qIndex];
   questionText.textContent = q.q;
   choices.innerHTML = "";
 
-  q.a.forEach((txt,i)=>{
+  q.a.forEach((txt, i) => {
     const d = document.createElement("div");
     d.className = "choice";
     d.textContent = txt;
-    d.onclick = ()=>answer(i===q.c);
+    d.onclick = () => answer(i === q.c);
     choices.appendChild(d);
   });
 
@@ -177,7 +177,7 @@ function renderQuestion(){
   startTimer();
 }
 
-function updateHUD(){
+function updateHUD() {
   scorePill.textContent = `Score: ${Math.round(state.score)}`;
 }
 
@@ -218,8 +218,8 @@ function nextQuestion() {
 }
 
 
-function endMission(){
-  if(state.score >= 50){
+function endMission() {
+  if (state.score >= 50) {
     finalScore.textContent = `Final Score: ${Math.round(state.score)}`;
     show("success");
   } else {
@@ -228,26 +228,31 @@ function endMission(){
   }
 }
 
+
+
+
 /* ================= EVENTS ================= */
-startBtn.onclick = ()=>{ audioCtx.resume(); show("targets"); };
-toForces.onclick = ()=> state.target && show("forces");
-toMission.onclick = ()=>{
-  if(!state.force) return;
+startBtn.onclick = () => { audioCtx.resume(); show("targets"); };
+toForces.onclick = () => state.target && show("forces");
+
+toMission.onclick = () => {
+  if (!state.force) return;
   state.score = 0; state.qIndex = 0;
   scorePill.textContent = "Score: 0";
   renderQuestion();
   show("mission");
 };
-quitBtn.onclick = ()=>{
+
+quitBtn.onclick = () => {
   clearInterval(timer);
   show("intro");
 };
 
-replayWin.onclick = replayFail.onclick = ()=> show("intro");
+replayWin.onclick = replayFail.onclick = () => show("intro");
 
 /* ================= INIT ================= */
-renderCards(targetsData, targetGrid, t=>state.target=t);
-renderCards(forcesData, forceGrid, f=>state.force=f);
+renderCards(targetsData, targetGrid, t => state.target = t);
+renderCards(forcesData, forceGrid, f => state.force = f);
 
 let timer;
 let timeLeft = 30;
@@ -265,3 +270,9 @@ function startTimer() {
   }, 1000);
 }
 
+function shakeScreen() {
+  document.body.style.transform = "translate(5px, 5px)";
+  setTimeout(() => document.body.style.transform = "translate(-5px, -5px)", 50);
+  setTimeout(() => document.body.style.transform = "translate(5px, -5px)", 100);
+  setTimeout(() => document.body.style.transform = "none", 150);
+}
